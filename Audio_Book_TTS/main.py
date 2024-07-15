@@ -1,17 +1,14 @@
 import pyttsx3
-import PyPDF2 
+import pdfplumber
 
-# PDF read in bytes
-with open('Audio_Book_TTS\Text_Files\GOT_BOOK_ONE.pdf', 'rb') as book:
-    reader = PyPDF2.PdfFileReader(book)
-
+# Open PDF in read binary mode
+with pdfplumber.open(r'Audio_Book_TTS\Text_Files\EnglishSpeaking.pdf') as book:  # Use raw string (r'') or escape backslashes (\\)
+    full_text = ""
     audio_reader = pyttsx3.init()
+    audio_reader.setProperty('rate', 150)  # Adjust speech rate if needed
 
-    audio_reader.setProperty('rate', 100) # 50 is slow, 300 is fast, we can test it out
-
-    for page in range(reader.numPages):
-        next_page = reader.getPage(page)
-        content = next_page.extractText()
+    for page in book.pages:
+        content = page.extract_text()
 
         audio_reader.say(content)
         audio_reader.runAndWait()
