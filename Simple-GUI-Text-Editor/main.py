@@ -18,6 +18,12 @@ class MyGUI(QMainWindow):
         # Set action when user clicks on "Open"
         self.actionOpen.triggered.connect(self.open_file)
 
+        # Set action when user clicks on "Save"
+        self.actionSave.triggered.connect(self.save_file)
+
+        # Set action when user clicks on "Exit at top of window"
+        self.actionClose.triggered.connect(exit)
+
     # Font-size change function, takes size as argument
     def change_font_size(self, size):
         self.plainTextEdit.setFont(QFont("Arial", size))
@@ -29,6 +35,14 @@ class MyGUI(QMainWindow):
         if filename != "":
             with open(filename, "r") as f:
                 self.plainTextEdit.setPlainText(f.read())
+
+    # Saves the file, writes to text files folder
+    def save_file(self):
+        options = QFileDialog.Options()
+        filename, _ = QFileDialog.getSaveFileName(self, "Save File", "", "Text File (*.txt);;All Files (*)", options = options)
+        if filename != "":
+            with open(filename, "w") as f:
+                f.write(self.plainTextEdit.toPlainText())
 
 def main():
     app = QApplication([])
