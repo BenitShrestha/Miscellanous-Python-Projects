@@ -9,6 +9,16 @@ class MyGUI(QMainWindow):
         uic.loadUi('Simple-GUI-Text-Editor/Editor.ui', self)
         self.show()
 
+        # Set windows title name and font-size actions
+        self.setWindowTitle("Notepad - Simple GUI Text Editor")
+        self.action12_pt.triggered.connect(lambda: self.change_font_size(12))
+        self.action18_pt.triggered.connect(lambda: self.change_font_size(18))
+        self.action24_pt.triggered.connect(lambda: self.change_font_size(24))
+
+    # Font-size change function, takes size as argument
+    def change_font_size(self, size):
+        self.plainTextEdit.setFont(QFont("Arial", size))
+
 def main():
     app = QApplication([])
     windows = MyGUI()
