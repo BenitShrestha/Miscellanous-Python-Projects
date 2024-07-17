@@ -44,6 +44,21 @@ class MyGUI(QMainWindow):
             with open(filename, "w") as f:
                 f.write(self.plainTextEdit.toPlainText())
 
+    def closeEvent(self, event): # Not custom function, overriding
+        dialog = QMessageBox()
+        dialog.setText("Do you want to save your work?")
+        dialog.addButton(QPushButton("Yes"), QMessageBox.YesRole) # 0
+        dialog.addButton(QPushButton("No"), QMessageBox.NoRole) # 1
+        dialog.addButton(QPushButton("Cancel"), QMessageBox.RejectRole) # 2
+
+        answer = dialog.exec_()
+        
+        if answer == 0:
+            self.save_file()
+            event.accept()
+        elif answer == 2:
+            event.ignore()
+
 def main():
     app = QApplication([])
     windows = MyGUI()
