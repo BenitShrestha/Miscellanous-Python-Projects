@@ -1,6 +1,7 @@
 import os
 import pyttsx3
 import pdfplumber
+from audioMerge import audio_merge
 
 # Specify directory paths
 folder_path_text = "Audio_Book_TTS/Text_Files"
@@ -39,3 +40,4 @@ else:
             audio_reader.runAndWait()  # Wait for each page's text-to-speech conversion to complete
     print(f"Total pages in {bookname}.pdf : {count_page} pages")
     print(f'{bookname}.pdf file converted to audio files and saved')
+    audio_merge(bookname)
