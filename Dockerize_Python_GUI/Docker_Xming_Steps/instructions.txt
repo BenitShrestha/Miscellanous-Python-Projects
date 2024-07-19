@@ -1,0 +1,22 @@
+Ensure you have Docker Desktop: https://www.docker.com/products/docker-desktop/ and Xming X Server: On Source Forge, are installed.
+
+Then run the Docker Engine and Xming, also open windows terminal.
+
+Navigate to folder where Python GUI application and Dockerfile are located.
+
+For Docker in terminal: Creating a docker image for our GUI project
+    1. cd C:\Users\quinj\Documents\Miscellanous-Python-Projects\Dockerize_Python_GUI
+    2. docker build -t gui_image . (Comment: Builds a docker image named gui_image, can be seen in Docker Desktop)
+
+Go to directory path, C:\Program Files (x86)\Xming, open terminal here to run X Server (Note: Docker image won't run if X Server isn't activated)
+    1. .\Xming.exe -ac (Comment: Runs X Server and -ac, disables access control, allowing any client to connect to X server)
+
+Back to Docker in Terminal:
+    1. Confimr IP address using: ipconfig (Choose ethernet for wired or adapter for wifi)
+    2. Set a display variable as follows: $env:DISPLAY="192.168.16.102:0.0" (Comment: LAN Adapter IP Address)
+    3. Run the Docker container with correct DISPLAY environment variable: docker run -it --rm -e DISPLAY=$env:DISPLAY --network="host" --name gui_container gui_image
+    4. The Docker image keeps running on the server until it is stopped, usually from another terminal
+    5. Stop Docker from running on server: docker ps - Check contents 
+                                           docker stop gui_container (Comment: Container_ID)
+
+REFER TO IMAGES AS WELL
