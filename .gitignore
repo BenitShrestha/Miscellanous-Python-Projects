@@ -1,1 +1,8 @@
+.gitignore
 env/
+Simple-GUI-Text-Editor/Text-Files/
+Audio_Book_TTS/Audio_Files/
+QR_CODE_GENERATOR/QRCODE_SAVED/
+Audio_Book_TTS/Merged_Files/
+Audio_Book_TTS/Text_Files/
+Audio_Book_TTS/__pycache__/
