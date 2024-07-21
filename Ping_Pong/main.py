@@ -61,4 +61,18 @@ def draw_objects():
     screen.blit(score, (WIDTH / 2, 30)) # (X, Y)
 
 def apply_player_movement():
+    global p1_y_pos # Vertical movement only 
+    global p2_y_pos
+
+    if p1_up:
+        p1_y_pos = max(p1_y_pos - paddle_speed, 0) # Can't go below 0
+    elif p1_down:
+        p1_y_pos = min(p1_y_pos + paddle_speed, HEIGHT) # Can't go above HEIGHT
+
+    if p2_up:
+        p2_y_pos = max(p2_y_pos - paddle_speed, 0)
+    elif p2_down:
+        p2_y_pos = min(p2_y_pos - paddle_speed, HEIGHT)
+
+def apply_ball_movement():
     pass
