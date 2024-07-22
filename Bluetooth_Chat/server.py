@@ -21,7 +21,7 @@ def Bluetooth_Chat():
             data = client.recv(1024) # Receive data from other client, 1024 bytes
             if not data:
                 break
-            print(f"Message: {data.decode(data.decode('utf-8'))}") # Decode data using UTF-8
+            print(f"Message: {data.decode('utf-8')}") # Decode data using UTF-8
             message = input("Enter Message: ")
             client.send(message.encode('utf-8')) # Encode to bit stream
 

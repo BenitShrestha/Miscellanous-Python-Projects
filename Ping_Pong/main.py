@@ -42,8 +42,8 @@ p2_down = False
 ball_x_pos = WIDTH / 2
 ball_y_pos = HEIGHT / 2
 
-ball_width =  8
-ball_x_vel = -15 # Goes left 
+ball_width =  20
+ball_x_vel = -20 # Goes left 
 ball_y_vel = 0 # Doesn't move vertically
 
 # Draw game components
@@ -89,7 +89,7 @@ def apply_ball_movement():
         p2_score += 1
         ball_x_pos = WIDTH / 2
         ball_y_pos = HEIGHT / 2
-        ball_x_vel = 15
+        ball_x_vel = 20
         ball_y_vel = 0 
 
     # Identical code for another player
@@ -102,7 +102,7 @@ def apply_ball_movement():
         p1_score += 1
         ball_x_pos = WIDTH / 2
         ball_y_pos = HEIGHT / 2
-        ball_x_vel = -15
+        ball_x_vel = -20
         ball_y_vel = 0
 
     # If ball hits top or bottom wall
@@ -157,4 +157,4 @@ while running:
     apply_ball_movement()
     draw_objects()
     pygame.display.flip()
-    pygame.time.delay(delay) 
+    pygame.time.delay(delay)

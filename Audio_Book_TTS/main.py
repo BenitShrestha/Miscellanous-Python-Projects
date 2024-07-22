@@ -28,7 +28,7 @@ else:
     with pdfplumber.open(os.path.join(folder_path_text, f'{bookname}.pdf')) as book:
         count_page = len(book.pages)
         audio_reader = pyttsx3.init()
-        audio_reader.setProperty('rate', 150)  # Adjust speech rate if needed
+        audio_reader.setProperty('rate', 200)  # Adjust speech rate if needed
         
         if count_page >= 100:
             print('Over 100 pages, might take a long time to convert to audio')
