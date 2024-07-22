@@ -16,10 +16,10 @@ game_font = pygame.font.SysFont('monospace', 40)
 delay = 30 # Game pace, when increased game becomes slower
 
 # Paddle/Bat properties
-paddle_speed = 20 
+paddle_speed = 15
 
 paddle_width = 10
-paddle_height = 100
+paddle_height = 75
 
 # Player positions
 p1_x_pos = 10 
@@ -43,7 +43,7 @@ ball_x_pos = WIDTH / 2
 ball_y_pos = HEIGHT / 2
 
 ball_width =  8
-ball_x_vel = -10 # Goes left 
+ball_x_vel = -15 # Goes left 
 ball_y_vel = 0 # Doesn't move vertically
 
 # Draw game components
@@ -54,7 +54,7 @@ def draw_objects():
     ''' Drawn on screen, color is white, int() used since division occurs, tuple passed with player position and bat dimensions'''
     pygame.draw.rect(screen, WHITE, (int(p1_x_pos), int(p1_y_pos), paddle_width, paddle_height))
     pygame.draw.rect(screen, WHITE, (int(p2_x_pos), int(p2_y_pos), paddle_width, paddle_height))
-    pygame.draw.circle(screen, WHITE, (int(ball_x_pos), int(ball_y_pos), ball_width)) 
+    pygame.draw.circle(screen, WHITE, (int(ball_x_pos), int(ball_y_pos)), ball_width) 
 
     # Scores 
     score = game_font.render(f"{str(p1_score)} - {str(p2_score)}", False, WHITE)
@@ -72,7 +72,7 @@ def apply_player_movement():
     if p2_up:
         p2_y_pos = max(p2_y_pos - paddle_speed, 0)
     elif p2_down:
-        p2_y_pos = min(p2_y_pos - paddle_speed, HEIGHT)
+        p2_y_pos = min(p2_y_pos + paddle_speed, HEIGHT)
 
 def apply_ball_movement():
     global ball_x_pos, ball_y_pos, ball_x_vel, ball_y_vel, p1_score, p2_score
@@ -89,7 +89,7 @@ def apply_ball_movement():
         p2_score += 1
         ball_x_pos = WIDTH / 2
         ball_y_pos = HEIGHT / 2
-        ball_x_vel = 10
+        ball_x_vel = 15
         ball_y_vel = 0 
 
     # Identical code for another player
@@ -102,6 +102,59 @@ def apply_ball_movement():
         p1_score += 1
         ball_x_pos = WIDTH / 2
         ball_y_pos = HEIGHT / 2
-        ball_x_vel = -10
+        ball_x_vel = -15
         ball_y_vel = 0
 
+    # If ball hits top or bottom wall
+    if ball_y_pos + ball_y_vel > HEIGHT or ball_y_pos + ball_y_vel < 0:
+        ball_y_vel = -ball_y_vel
+
+    ball_x_pos += ball_x_vel # Ball moves horizontally
+    ball_y_pos += ball_y_vel # Ball moves vertically
+
+# Main Game Loop 
+pygame.display.set_caption("Ping Pong")
+screen.fill(BLACK)
+pygame.display.flip()
+
+running = True
+while running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_ESCAPE:
+                running = False
+
+            if event.key == pygame.K_e:
+                p1_up = True
+
+            if event.key == pygame.K_d:
+                p1_down = True
+
+            if event.key == pygame.K_i:
+                p2_up = True
+
+            if event.key == pygame.K_k:
+                p2_down = True
+
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_e:
+                p1_up = False
+
+            if event.key == pygame.K_d:
+                p1_down = False
+
+            if event.key == pygame.K_i:
+                p2_up = False
+
+            if event.key == pygame.K_k:
+                p2_down = False
+
+    screen.fill(BLACK)    
+    apply_player_movement()
+    apply_ball_movement()
+    draw_objects()
+    pygame.display.flip()
+    pygame.time.delay(delay) 
